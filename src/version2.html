@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Web settings -->
+    <title>Mekanders Punten Simulatie</title>    
+    <link rel='shortcut icon' type='image/png' href='./assets/images/icon.ico' />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap_min.css">
+    <link rel="stylesheet" href="./page_css/css/style.css">
+
+
+    <!-- Scripts -->
+    <script type="application/ecmascript" src="./bootstrap/scripts/jquery.min.js"></script>
+    <script type="application/ecmascript" src="./bootstrap/scripts/popper.js"></script>
+    <script type="application/ecmascript" src="./bootstrap/scripts/bootstrap.js"></script>
+    <script type="application/ecmascript" src="./bootstrap/scripts/html2canvas.js"></script>
+
+    <script type="application/ecmascript" src="./page_scripts/calculationScript.js"></script>
+    <script type="application/ecmascript" src="./page_scripts/startup/startup.js"></script>
+
+</head>
+
+<body onload="loadPage();">
+    <div class="container">
+        <div class="mainInfo">
+            <div class="row">
+                <div class="col" id="name">
+                    <label for="txtName">Naam</label>
+                    <input id="txtName" type="text" tabindex="1">
+                </div>
+                <div class="col" id="BP">
+                    <div id="bpCont">
+                        <label for="bValue">B</label>
+                        <input id="bValue" placeholder="0" type="text" onblur="updateResults();" tabindex="4">
+                        <label for="pValue">/ P</label>
+                        <input id="pValue" placeholder="0" type="text" onblur="updateResults();" tabindex="5">
+                    </div>
+                    <img src="assets/images/logo_transparant.png" alt="logo">
+                </div>
+                <div class="switch">
+                    <input id="rNew" value=true name="BP_version" type="radio" checked>
+                    <label for="rNew">Nieuw</label>
+                    <input id="rTrans" value=false name="BP_version" type="radio">
+                    <label for="rTrans">Transitie</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="txtBudget">Persoonsvolgend Budget</label>
+                    <div id="txtBudget">
+                        <div class="symbP">
+                            <input id="budgetP" type="text" tabindex="2">
+                        </div>
+                        <span>&#8644;</span>
+                        <div class="symbE">
+                            <input id="budgetE" type="text" tabindex="3">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="periode">Periode</label>
+                    <div id="periode">
+                        <input id="startDt" type="date" onblur="updateResults();" tabindex="6">
+                        <span> - </span>
+                        <input id="endDt" type="date" onblur="updateResults();" tabindex="7">
+                    </div>
+                    <span id="totaalDagen"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!------------------------------------- TEMPLATES ------------------------------------------->
+
+    <template id="costRowTemplate">
+        <div class="row">
+            <div class="col beschrijving"></div>
+            <div class="col wekelijks"></div>
+            <div class="col minmax"></div>
+            <div class="col totaal"></div>
+        </div>
+    </template>
+
+    <!------------------------------------------------------------------------------------------->
+    <div class="container costs">
+        
+        <div id="veil" class="row">
+            Vul bovenstaande velden in!
+        </div>
+
+        <div id="tabs" class="row">
+            <div id="form">
+                <div index=0 class="tab bgred selected"><span>1</span></div>
+                <div index=1 class="tab bgblue"><span>2</span></div>
+                <div index=2 class="tab bggreen"><span>3</span></div>
+                <div index=3 class="tab bgyellow"><span>4</span></div>
+            </div>
+            <div id="others">
+                <div index=4 class="tab"><span></span><span class="symbol">&#128366;</span></div>
+                <div index=5 class="tab"><span></span><span class="symbol">&#128438;</span></div>
+            </div>
+        </div>
+        
+        <div id="overviews" hidden>
+            <div id="switchContainer">
+                <div class="switch">
+                    <input id="rDag" value="dag" name="tabelR" type="radio" checked>
+                    <label for="rDag">Dagbegeleiding</label>
+                    <input id="rWoon" value="woon" name="tabelR" type="radio">
+                    <label for="rWoon">Woonbegeleiding</label>
+                    <input id="rIndiv" value="indiv" name="tabelR" type="radio">
+                    <label for="rIndiv">Individuele Begeleiding</label>
+                    <input id="rB" value="Bwaarden" name="tabelR" type="radio">
+                    <label for="rB">B-waarden</label>
+                    <input id="rP" value="Pwaarden" name="tabelR" type="radio">
+                    <label for="rP">P-waarden</label>
+                </div>
+            </div>
+            <table class="container">
+            </table>
+        </div>
+
+        <div id="prices" class="bgred">
+            <div id="switchTotal">
+                <div class="switch">
+                    <input id="rP" value="P" name="resR" type="radio" checked>
+                    <label for="rP">Ptn</label>
+                    <input id="rE" value="E" name="resR" type="radio">
+                    <label for="rE">&euro;</label>
+                </div>
+            </div>
+
+            
+            <div id="ondersteuningen">
+                <!-- Hier worden alle rows gegenereerd (zie onloadScript) -->
+            </div>
+    
+    
+            <div id="andere">
+                <div class="row" id="pakketten">
+                    <div class="col beschrijving">Begeleid werk</div>
+                    <div class="col pakket">
+                        <select>
+                        </select>
+                    </div>
+                    <div class="col details"></div>
+                    <div class="col totaal"></div>
+                </div>
+                <div class="row" id="activiteiten">
+                    <div class="col beschrijving">Activiteiten & Ontmoeting</div>
+                    <div class="col">
+                        <label class="actBox">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col totaal"></div>
+                </div>
+                <div class="row" id="besteedbaarDeel">
+                    <div class="col beschrijving">Vrij besteedbaar deel <span>(per jaar)</span></div>
+                    <div class="col besteedbaar symbE"><input id="besteedbaar" type="text"></div>
+                    <div class="col"></div>
+                    <div class="col totaal"></div>
+                </div>
+            </div>
+    
+    
+            <div id="resultaat">
+                <div class="row beschrijving">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"><span>Totaal kosten:</span></div>
+                    <div class="col res" id="res">
+                    </div>
+                </div>
+                <div class="row beschrijving" id="resBudgetRow" hidden>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"><span>Budget:</span></div>
+                    <div class="col res"></div>
+                </div>
+                <div class="row beschrijving" id="resCostRow" hidden>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"><span>Resultaat:</span></div>
+                    <div class="col res"></div>
+                </div>
+            </div>
+            <div id="line"></div>
+        </div>
+    </div>
+</body>
+</html>

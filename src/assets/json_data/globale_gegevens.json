@@ -1,0 +1,21 @@
+{
+    "psychosociaal": {
+        "eerste": 7.7401,
+        "tweede": 2.5099
+    },
+    "indiv": {
+        "tien": 2.6976,
+        "overige": 2.5803
+    },
+    "max": {
+        "dag": 7,
+        "dagZonderWoon": 5,
+        "woon": 7,
+        "psycho": 100
+    },
+    "activiteiten_ontmoeting": 0.5,
+    "weekend_modifier": 1.11111111,
+    "persoonsvolgend_rate": 861.86,
+    "besteedbaar_rate": 964.7662,
+    "punt_euro_rate": 950
+}

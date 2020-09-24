@@ -1,0 +1,171 @@
+body{
+    height: 95vh;
+}
+
+header {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+    text-align: center;
+    font-size: 25px;
+}
+
+section {
+    border-radius: 5px;
+}
+
+div {
+    height: 100%; 
+    width: 100%;
+}
+
+#factors {
+    height: 70%;
+}
+
+#total {
+    border-top: 2px solid black;
+    height: 15%; 
+    padding: 5px;
+    margin: 5px;
+    width: auto;
+}
+
+#sum {
+    width: 120%; 
+    height: 45%; 
+    margin: 1vh 5px; 
+    display: inline-block;
+    background-color: lightgray;
+    font-size: 1.7vmin;
+}
+
+@media screen and (min-width: 1200px) {
+    #sum {
+      font-size: 1.9vmin;
+    }
+  }
+
+#form {
+    max-width: 100%;
+    height: 85%;
+}
+
+
+#headrow .row {
+    height: 30%;
+}
+
+#form > .row{
+    height: 10%;
+    width: auto;
+}
+
+.beschrijving {
+    font-size: medium;
+    font-weight: 700;
+}
+
+input[type='text'], select {
+    width: 100%;
+}
+
+input[type='text'], input[type='text']:focus {
+    border: 0;
+    border-bottom: 2px solid black;
+    background-color: transparent;
+    text-align: center;
+    outline: transparent;
+}
+
+input[type='text']:focus {
+    border-bottom-color: grey;
+}
+
+#Bvalue, #Pvalue {
+    width: 25px;
+    position: relative;
+    left: -5px;
+}
+
+#formContainer{
+    margin-bottom: 5vh;
+    background-color:rgba(145, 200, 215, 0.65);
+}
+
+#titleRow {
+    height: fit-content;
+    margin: 2vh auto 5vh; 
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+#besteedbaar_deel {
+    text-align: center;
+}
+
+#besteedbaar_deel * {
+    font-size: 1.5vw;
+}
+
+#headrow {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed black;
+}
+
+.custom-col {
+    padding-right: 0;
+}
+
+.BP {
+    font-size: 5vmin;
+    text-align: center;
+    position: relative;
+    top: 7vh;
+}
+
+#naam {
+    height: 100%;
+    font-size: 3vmin;
+    padding-left: 5%;
+}
+
+.moneyField::before{
+    content: '€';
+    display: inline;
+    position: absolute;
+    left: -0.2vw;
+}
+
+.line {
+    width: 100%;
+}
+
+.receiptRow, #total{
+    height: fit-content;
+    margin: 0;
+    padding: 0 1vw;
+    text-align: right;
+}
+
+.receiptRow > span {
+    padding : 0;
+}
+
+.positive > span:nth-of-type(2)::before {
+    content: "+ ";
+}
+
+.negative > span:nth-of-type(2)::before{
+    content: "- ";
+}
+
+.negative {
+    color: red;
+}
+
+.positive {
+    color: green;
+}
