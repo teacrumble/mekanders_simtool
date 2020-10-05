@@ -20,7 +20,7 @@ function minmax(num, altMax, dagen=true){
     const strMin = ('____'+min).slice(-4).split("_").join("  ");
     const strMax = (max+'____').slice(0,4).split("_").join("  ");
 
-    return `${strMin} - ${strMax}`;
+    return `Min ${strMin} - Max ${strMax}`;
 }
 
 //aantal voor de gehele periode ipv per week

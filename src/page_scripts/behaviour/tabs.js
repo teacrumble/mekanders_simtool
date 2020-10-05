@@ -159,6 +159,8 @@ function copyTab(cont, index){
     document.querySelector(`.costs .tab[index="${index}"]`).onclick();
     const cost = document.querySelector(".costs").cloneNode(true);
     cost.querySelector("#others").setAttribute("hidden", "");
+    const selectedOption = Array.from(document.querySelectorAll(`.costs select option`)).filter(x => x.selected)[0];
+    Array.from(cost.querySelectorAll(`.costs select option`)).filter(x => x.value == selectedOption.value)[0].selected = true;
 
     cont.appendChild(cost);
     cont.lastElementChild.classList.remove("container");

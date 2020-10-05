@@ -90,9 +90,9 @@ function setSuppRowBehaviour(){
 
                 let price = getPrice(inpVal, id);
                 if(resR == "E") price *= _globals.punt_euro_rate;
-                
+                if(id == "psycho") dagException = Math.ceil(dagException);
 
-                o.querySelector(".minmax").innerHTML = `${getMinMaxOndersteuning(dagException, id!="psycho")} ${eenheid} totaal`;
+                o.querySelector(".minmax").innerHTML = `${getMinMaxOndersteuning(dagException, id!="psycho")} ${eenheid}`;
                 o.querySelector(".totaal").innerHTML = getTotaalPeriod(price, resR);
             } else {
                 o.querySelector(".minmax").innerHTML = "";

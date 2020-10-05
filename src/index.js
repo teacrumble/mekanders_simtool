@@ -24,7 +24,7 @@ const createWindow = () => {
 
   mainWindow.setMenu(null);
   mainWindow.maximize();
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/version2.html`);
