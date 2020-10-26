@@ -86,7 +86,9 @@ function setSuppRowBehaviour(){
 
             if(inpVal <= max){
 
-                let dagException = dagZonderWoon ? inpVal*220/260  : inpVal;
+                //245 = 49 weken tellen
+                let aantalDagen = 245;
+                let dagException = dagZonderWoon ? inpVal*aantalDagen/260  : inpVal;
 
                 let price = getPrice(inpVal, id);
                 if(resR == "E") price *= _globals.punt_euro_rate;
