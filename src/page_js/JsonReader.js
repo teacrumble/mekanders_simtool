@@ -9,6 +9,7 @@
         this.pValues = this.read_p();
         this.oldBValues = this.read_b(false);
         this.oldPValues = this.read_p(false);
+        this.budgetCats = this.read_bc();
         this.currentCat = new Category(0, 0, 0, 0, 0);
     }
 
@@ -42,6 +43,10 @@
 
     read_psycho() {
         return JSON.parse(FilesHandler.read_psycho());
+    }
+
+    read_bc(){
+        return JSON.parse(FilesHandler.read_budgetcats());
     }
 
 }

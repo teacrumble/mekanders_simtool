@@ -119,17 +119,20 @@
     }
 
     //BP DESCRIPTIONS
-    generateHeaderBP(head) {
+    generateHeader(head){
         let header = document.createElement("thead");
         header.classList.add("row");
-        [[head, 2], ["Beschrijving", 10]].forEach(t => {
+        head.forEach(t => {
             let thd = document.createElement("th");
             thd.innerText = t[0];
             thd.classList.add(`col-${t[1]}`);
             header.append(thd);
         });
-
         return header;
+    }
+
+    generateHeaderBP(head) {
+        return this.generateHeader([[head, 2], ["Beschrijving", 10]]);
     }
 
     loadRows(map, header) {
@@ -148,6 +151,24 @@
     loadDescriptions(map, type) {
         const header = this.generateHeaderBP(type);
         this.loadRows(map, header);
+    }
+
+    loadBudgetCats(){
+        const tabel = document.createElement("table");
+        const budgetCats = this.reader.budgetCats;
+
+        const head = [["Budget Categorie", 2], ["Minimale Vereiste BP-Combinaties", 7], ["Zorggebonden Punten", 3]];
+        const header = this.generateHeader(head);
+        tabel.appendChild(header);
+
+        budgetCats.forEach(bc => {
+            let row = document.createElement("tr");
+            row.classList.add("row");
+            row.innerHTML = `<td class="col-2">${bc.budget}</td> <td class="col-7">${bc.vereisteBP.join(" - ")}</td> <td class="col-3">${ fixed_p(bc.ZorggebondenP, 6)}</td>`;
+            tabel.append(row);
+        });
+
+        return tabel;
     }
 
 }

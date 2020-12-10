@@ -155,7 +155,7 @@ input {
 
 #veil {
   position: absolute;
-  z-index: 9999;
+  z-index: 999;
   background-color: rgba(25, 25, 25, 0.9);
   top: -1%;
   width: 100%;
@@ -215,6 +215,47 @@ input {
       border-bottom: 0;
       bottom: -1px;
   }
+
+#budgetCats{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    font-size: x-large;
+    left: 47.5%;
+    bottom: -32%;
+    text-align: center;
+    border-radius: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: lightgray;
+    transition: linear transform;
+}
+
+@keyframes mekandersFont{
+    0% {color: lightgray}
+    10% {color: rgb(255, 170, 170);}
+    20% {color: rgb(255, 170, 170);}
+    30% {color: rgb(204, 238, 153);}
+    40% {color: rgb(204, 238, 153);}
+    50% {color: rgb(187, 221, 238);}
+    60% {color: rgb(187, 221, 238);}
+    70% {color: rgb(241, 243, 141);}
+    80% {color: rgb(241, 243, 141);}
+    90% {color: lightgray}
+    100% {color: lightgray}
+}
+
+#budgetCats:hover{
+    cursor: pointer;
+    animation-name: mekandersFont;
+    animation-iteration-count: infinite;
+    animation-duration: 10s;
+}
+
+#budgetCats span{
+    top: -2px;
+    position: relative;
+}
+
 
 #ondersteuningen {
   margin-top: 45px;
@@ -457,7 +498,7 @@ input {
 
   #overviews .row td:first-of-type {
       font-size: 115%;
-      font-weight: 800;
+      font-weight: 700;
       white-space: pre;
       border-left: 0;
   }
@@ -616,15 +657,80 @@ input {
   margin: auto;
   text-align: right;
   top: 5vh;
+  z-index: 1;
 }
 
   .resView .buttonsP input {
       font-size: 30px;
       color: white;
+      border-radius: 100%;
+      width: 50px;
+      height: 50px;
   }
 
   .resView .buttonsP #cancel {
       margin: 1% 0 0 0;
   }
 
+  .tableDiv{
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    border: 2px solid black;
+    width: 700px;
+    margin: auto;
+    padding: 2%;
+    position: relative;
+    top: -4%;
+  }
+
+  .tableDiv table{
+      width: 100%;
+  }
+
+  .tableDiv td.col-7 {
+    font-size: small;
+    white-space: pre;
+  }
+
+  .tableDiv td.col-2 {
+    font-weight: 600;
+    font-size: medium;
+  }
+
+  .tableDiv .col-3 {
+    text-align: right;
+  }
+
+  
+
+  .tableDiv th{
+    font-weight: 800;
+    font-size: initial;
+  }
+
+  .tableDiv th.col-2{
+      text-align: left;
+  }
+
+  .tableDiv th.col-7{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .tableDiv .row {
+    border-bottom: 1px dashed black;
+    }
+
+    .tableDiv thead {
+        border-bottom: solid !important;
+    }
+
+    .tableDiv .row:last-of-type{
+        border-bottom: solid;
+    }
+
+    #btnCancel{
+        border-bottom: none;
+    }
 /*# sourceMappingURL=style.css.map */

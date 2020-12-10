@@ -10,7 +10,6 @@
         this.tabMgr = tabMgr;
     }
 
-
     convertBudget() {
         //arrow functions
         const blankOnZero = num => num == 0 ? "" : num;
@@ -130,6 +129,31 @@
         });
     }
 
+    budgetCatButton(){
+        const btnHelp = document.querySelector("#budgetCats");
+        btnHelp.addEventListener("click", () => {
+            //resview
+            const resView = document.createElement("div");
+            resView.classList.add("resView");
+            document.body.appendChild(resView);
+
+            //buttons
+            const buttons = document.createElement("div");
+            buttons.classList.add("buttonsP");
+            buttons.innerHTML = `<input type="button" value="&#128473;" id="btnCancel">`;
+            resView.appendChild(buttons);
+            
+            //table
+            const tableDiv = document.createElement("div");
+            tableDiv.classList.add("tableDiv");
+            const table = this.loader.loadBudgetCats();
+            tableDiv.appendChild(table);
+            resView.appendChild(tableDiv);
+            //behaviour
+            document.querySelector("#btnCancel").onclick = () => document.body.removeChild(resView);
+        });
+    }
+
     downloadBehaviour() {
         const btnDownload = document.querySelector("#tabs #others #download");
         btnDownload.addEventListener("click", () => {
@@ -152,5 +176,6 @@
         this.downloadBehaviour();
 
         this.tabMgr.setTabHandlers();
+        this.budgetCatButton();
     }
 }

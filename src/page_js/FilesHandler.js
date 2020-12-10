@@ -33,4 +33,8 @@ class FilesHandler {
         return newValues ? this.read_json("categorie/new/pwaarden.json") :
             this.read_json("categorie/transition/transitie.pwaarden.json");
     }
+
+    static read_budgetcats(){
+        return this.read_json("budgetcat.json");
+    }
 }
