@@ -5,7 +5,6 @@
   "description": "Punten Simulatie voor ondersteuning",
   "main": "src/index.js",
   "scripts": {
-    "prestart": "sass src/page_css/sass:src/page_css/css",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",

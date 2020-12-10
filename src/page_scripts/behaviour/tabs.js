@@ -93,7 +93,6 @@ function getFileNameDefault(){
     return `${nameString}_${dateString}`;
 }
 
-
 function printPreviewBehaviour(resV){
     //voeg behaviour toe voor de buttons
     document.querySelector("#cancel").onclick = () => document.body.removeChild(resV);

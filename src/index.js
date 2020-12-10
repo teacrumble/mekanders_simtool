@@ -16,15 +16,15 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     minWidth: 1050,
     minHeight: 800,
-    icon: __dirname + '/assets/images/icon.png',
+    icon: __dirname + '/images/icon.png',
     webPreferences : {nodeIntegration: true}
   });
 
-  mainWindow.setIcon(__dirname + '/assets/images/icon.png');
+  mainWindow.setIcon(__dirname + '/images/icon.png');
 
   mainWindow.setMenu(null);
   mainWindow.maximize();
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/version2.html`);

@@ -1,32 +1,37 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <title>Mekanders_Sim</title>
+    <link rel='shortcut icon' type='image/png' href='images/icon.ico' />
 
-    <!-- Web settings -->
-    <title>Mekanders Punten Simulatie</title>    
-    <link rel='shortcut icon' type='image/png' href='./assets/images/icon.ico' />
+    <!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="./bootstrap/jquery.js"></script>
+    <script src="./bootstrap/popper.js"></script>
+    <script src="./bootstrap/bootstrap.js"></script>
+    <script src="./bootstrap/html2canvas.js"></script>
+    <link rel="stylesheet" href="./bootstrap/bootstrap_min.css">
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap_min.css">
-    <link rel="stylesheet" href="./page_css/css/style.css">
+    <!-- STYLE -->
+    <link href="page_css/default.css" rel="stylesheet" />
 
+    <!-- JS -->
+    <script src="page_js/jspdf.js"></script>
+    <script type="application/ecmascript" src="page_js/Datamodels.js"></script>
+    <script type="application/ecmascript" src="page_js/JsonReader.js"></script>
+    <script type="application/ecmascript" src="page_js/Processor.js"></script>
+    <script type="application/ecmascript" src="page_js/RowCalculator.js"></script>
+    <script type="application/ecmascript" src="page_js/TabManager.js"></script>
+    <script type="application/ecmascript" src="page_js/CostBehaviour.js"></script>
+    <script type="application/ecmascript" src="page_js/TableLoader.js"></script>
+    <script type="application/ecmascript" src="page_js/FilesHandler.js"></script>
+    <script type="application/ecmascript" src="page_js/MasterBehaviour.js"></script>
 
-    <!-- Scripts -->
-    <script type="application/ecmascript" src="./bootstrap/scripts/jquery.min.js"></script>
-    <script type="application/ecmascript" src="./bootstrap/scripts/popper.js"></script>
-    <script type="application/ecmascript" src="./bootstrap/scripts/bootstrap.js"></script>
-    <script type="application/ecmascript" src="./bootstrap/scripts/html2canvas.js"></script>
-
-    <script type="application/ecmascript" src="./page_scripts/calculationScript.js"></script>
-    <script type="application/ecmascript" src="./page_scripts/startup/startup.js"></script>
-
+    <!-- MAIN -->
+    <script type="application/ecmascript" src="page_js/main.js"></script>
 </head>
-
-<body onload="loadPage();">
+<body class="win-type-body" onload="mainStart()">
     <div class="container">
         <div class="mainInfo">
             <div class="row">
@@ -37,11 +42,11 @@
                 <div class="col" id="BP">
                     <div id="bpCont">
                         <label for="bValue">B</label>
-                        <input id="bValue" placeholder="0" type="text" onblur="updateResults();" tabindex="4">
+                        <input id="bValue" placeholder="0" type="text" tabindex="4">
                         <label for="pValue">/ P</label>
-                        <input id="pValue" placeholder="0" type="text" onblur="updateResults();" tabindex="5">
+                        <input id="pValue" placeholder="0" type="text" tabindex="5">
                     </div>
-                    <img src="assets/images/logo_transparant.png" alt="logo">
+                    <img src="images/logo_transparant.png" alt="logo">
                 </div>
                 <div class="switch">
                     <input id="rNew" value=true name="BP_version" type="radio" checked>
@@ -66,9 +71,9 @@
                 <div class="col">
                     <label for="periode">Periode</label>
                     <div id="periode">
-                        <input id="startDt" type="date" onblur="updateResults();" tabindex="6">
+                        <input id="startDt" type="date" tabindex="6">
                         <span> - </span>
-                        <input id="endDt" type="date" onblur="updateResults();" tabindex="7">
+                        <input id="endDt" type="date" tabindex="7">
                     </div>
                     <span id="totaalDagen"></span>
                 </div>
@@ -76,20 +81,11 @@
         </div>
     </div>
 
-    <!------------------------------------- TEMPLATES ------------------------------------------->
 
-    <template id="costRowTemplate">
-        <div class="row">
-            <div class="col beschrijving"></div>
-            <div class="col wekelijks"></div>
-            <div class="col minmax"></div>
-            <div class="col totaal"></div>
-        </div>
-    </template>
 
-    <!------------------------------------------------------------------------------------------->
+
     <div class="container costs">
-        
+
         <div id="veil" class="row">
             Vul bovenstaande velden in!
         </div>
@@ -103,51 +99,99 @@
             </div>
             <div id="others">
                 <div index=4 class="tab"><span></span><span class="symbol">&#128366;</span></div>
-                <div index=5 class="tab"><span></span><span class="symbol">&#128438;</span></div>
+                <div id="download" class="tab"><span></span><span class="symbol">&#128427;</span></div>
             </div>
         </div>
-        
+
         <div id="overviews" hidden>
             <div id="switchContainer">
-                <div class="switch">
+                <div id="radioTable" class="switch">
                     <input id="rDag" value="dag" name="tabelR" type="radio" checked>
                     <label for="rDag">Dagbegeleiding</label>
                     <input id="rWoon" value="woon" name="tabelR" type="radio">
                     <label for="rWoon">Woonbegeleiding</label>
                     <input id="rIndiv" value="indiv" name="tabelR" type="radio">
                     <label for="rIndiv">Individuele Begeleiding</label>
-                    <input id="rB" value="Bwaarden" name="tabelR" type="radio">
-                    <label for="rB">B-waarden</label>
-                    <input id="rP" value="Pwaarden" name="tabelR" type="radio">
-                    <label for="rP">P-waarden</label>
+                    <input id="rBw" value="Bwaarden" name="tabelR" type="radio">
+                    <label for="rBw">B-waarden</label>
+                    <input id="rPw" value="Pwaarden" name="tabelR" type="radio">
+                    <label for="rPw">P-waarden</label>
                 </div>
             </div>
-            <table class="container">
-            </table>
+            <table class="container"></table>
         </div>
 
         <div id="prices" class="bgred">
             <div id="switchTotal">
                 <div class="switch">
-                    <input id="rP" value="P" name="resR" type="radio" checked>
+                    <input id="rP" value="P" name="resR" type="radio">
                     <label for="rP">Ptn</label>
                     <input id="rE" value="E" name="resR" type="radio">
                     <label for="rE">&euro;</label>
                 </div>
             </div>
-
-            
             <div id="ondersteuningen">
-                <!-- Hier worden alle rows gegenereerd (zie onloadScript) -->
+                <div id="dagRow" class="row">
+                    <div class="col beschrijving">Dagondersteuning</div>
+                    <div class="col wekelijks row">
+                        <div id="dag" class="col-3">
+                            <input eenheid="dagen" type="text">
+                            <label></label>
+                        </div>
+                        <div class="col-9">Dagen per week</div>
+                    </div>
+                    <div class="col minmax row">
+                        <div class="col-3">
+                            <input class="total" type="text" tabindex="999">
+                        </div>
+                        <div class="col-9"></div>
+                    </div>
+                    <div class="col totaal"></div>
+                </div>
+
+                <div id="woonRow" class="row">
+                    <div class="col beschrijving">Woonondersteuning</div>
+                    <div class="col wekelijks row">
+                        <div id="woon" class="col-3">
+                            <input eenheid="nachten" type="text">
+                            <label></label>
+                        </div>
+                        <div class="col-9">Nachten per week</div>
+                    </div>
+                    <div class="col minmax row">
+                        <div class="col-3">
+                            <input class="total" type="text" tabindex="999">
+                        </div>
+                        <div class="col-9"></div>
+                    </div>
+                    <div class="col totaal"></div>
+                </div>
+
+                <div id="psychoRow" class="row">
+                    <div class="col beschrijving">Psychosociale Ondersteuning</div>
+                    <div class="col wekelijks row">
+                        <div id="psycho" class="col-3">
+                            <input eenheid="uren" type="text">
+                            <label></label>
+                        </div>
+                        <div class="col-9">Uren per week</div>
+                    </div>
+                    <div class="col minmax row">
+                        <div class="col-3">
+                            <input class="total" type="text" tabindex="999">
+                        </div>
+                        <div class="col-9"></div>
+                    </div>
+                    <div class="col totaal"></div>
+                </div>
             </div>
-    
-    
+
+
             <div id="andere">
                 <div class="row" id="pakketten">
                     <div class="col beschrijving">Begeleid werk</div>
                     <div class="col pakket">
-                        <select>
-                        </select>
+                        <select></select>
                     </div>
                     <div class="col details"></div>
                     <div class="col totaal"></div>
@@ -165,13 +209,16 @@
                 </div>
                 <div class="row" id="besteedbaarDeel">
                     <div class="col beschrijving">Vrij besteedbaar deel <span>(per jaar)</span></div>
-                    <div class="col besteedbaar symbE"><input id="besteedbaar" type="text"></div>
+                    <div>
+                        <div class="col besteedbaar symbE"><input id="besteedbaar" type="text"></div>
+                        <label></label>
+                    </div>
                     <div class="col"></div>
                     <div class="col totaal"></div>
                 </div>
             </div>
-    
-    
+
+
             <div id="resultaat">
                 <div class="row beschrijving">
                     <div class="col"></div>
@@ -180,7 +227,7 @@
                     <div class="col res" id="res">
                     </div>
                 </div>
-                <div class="row beschrijving" id="resBudgetRow" hidden>
+                <div class="row beschrijving" id="resBudgetRow">
                     <div class="col"></div>
                     <div class="col"></div>
                     <div class="col"><span>Budget:</span></div>
