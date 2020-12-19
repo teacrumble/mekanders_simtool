@@ -20,6 +20,7 @@ class RowCalculator {
 
     GetWeeklyPricePsycho(hoursPerWeek) {
         if (hoursPerWeek <= 0) return 0;
+        if(hoursPerWeek < 1) return this.psycho.eerste * hoursPerWeek;
         if (hoursPerWeek < 3) return this.psycho.eerste + (this.psycho.tweede * (hoursPerWeek - 1));
         if (hoursPerWeek < 13) return this.psycho.eerste + this.psycho.tweede + (this.psycho.tien * ((hoursPerWeek - 2) % 11));
         return this.psycho.eerste + this.psycho.tweede + (this.psycho.tien * 10) + (this.psycho.overige * (hoursPerWeek - 12));
@@ -56,7 +57,9 @@ class RowCalculator {
         return result;
     }
     getMinMaxLiving(weeklyAmount, days) {
-        return this.getMinMax(weeklyAmount, days, "nachten");
+        const result = this.getMinMax(weeklyAmount, days, "nachten");
+        result.changeMax(days);
+        return result;
     }
     getMinMaxPsycho(weeklyAmount, days) {
         const newAmount = (weeklyAmount * 44) / 52;

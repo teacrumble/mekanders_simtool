@@ -183,7 +183,7 @@ class CostBehaviour {
             pakketBeschrijving.innerHTML = pakket.detail;
 
             if (pakket.punten != "") {
-                let price = pakket.punten;
+                let price = (pakket.punten/365)*getPeriodDays();
                 if (!inPoints) price *= this.reader.global.punt_euro_rate;
                 pakketTotaal.innerHTML = fixed_p(price, decimals);
             }
@@ -215,11 +215,12 @@ class CostBehaviour {
 
     setResultBesteedbaar() {
         const besteedbaar = document.querySelector("#besteedbaarDeel");
-        const persoonlijk = eval(document.querySelector("#budgetP").value + 0);
         const besteedInput = besteedbaar.querySelector("input");
         const besteedPunten = besteedbaar.querySelector(".totaal");
+        const persoonlijkPunten = document.querySelector("#budgetP");
 
         besteedInput.onchange = () => {
+            const persoonlijk = eval(persoonlijkPunten.value + 0);
             const max = persoonlijk <= 34.81 ? 1800 : 3600;
             const resR = document.querySelector("#switchTotal input:checked");
             const inPoints = resR.value == "P";

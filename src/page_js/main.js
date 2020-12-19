@@ -11,13 +11,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-const reader = new JsonReader();
-const calc = new RowCalculator(reader.global.punt_euro_rate, null, reader.psycho);
-const cost = new CostBehaviour(calc, reader);
-const loader = new TableLoader(reader);
-const master = new MasterBehaviour(reader.global.persoonsvolgend_rate, cost, reader, loader);
+
 
 function mainStart(){
+    const reader = new JsonReader();
+    const calc = new RowCalculator(reader.global.punt_euro_rate, null, reader.psycho);
+    const cost = new CostBehaviour(calc, reader);
+    const loader = new TableLoader(reader);
+    const master = new MasterBehaviour(reader.global.persoonsvolgend_rate, cost, reader, loader);
     const tabMngr = new TabManager();
     const processor = new Processor(tabMngr);
     master.processor = processor;
