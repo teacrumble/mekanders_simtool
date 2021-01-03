@@ -134,6 +134,9 @@ class MasterBehaviour {
                         this.loader.loadDescriptions(this.reader.oldPValues, "P-waarden");
                     document.querySelector("#overviews").scrollTop = 0;
                     break;
+                case "Pakketten":
+                    this.loader.loadPacketDescriptions();
+                    document.querySelector("#overviews").scrollTop = 0;
                 default:
                     break;
             }

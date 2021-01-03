@@ -125,12 +125,11 @@ class CostBehaviour {
         };
     }
 
-    setResultPsycho() {
-        const psycho = document.querySelector("#psychoRow");
-        const minmax = psycho.querySelector(".minmax .col-9");
-        const totalD = psycho.querySelector(".minmax input");
-        const totaal = psycho.querySelector(".totaal");
-        const input = psycho.querySelector("input");
+    setResultPsychoPak(element){
+        const minmax = element.querySelector(".minmax .col-9");
+        const totalD = element.querySelector(".minmax input");
+        const totaal = element.querySelector(".totaal");
+        const input = element.querySelector("input");
 
         input.onchange = e => {
             const periode = getPeriodDays();
@@ -165,6 +164,16 @@ class CostBehaviour {
         };
     }
 
+    setResultPsycho() {
+        const psycho = document.querySelector("#psychoRow");
+        this.setResultPsychoPak(psycho);
+    }
+
+    setResultPakket(){
+        const pakket = document.querySelector("#pakketten");
+        this.setResultPsychoPak(pakket);
+    }
+    /*
     setResultPakket() {
         const pakketten = document.querySelector("#pakketten");
         const pakketSelect = pakketten.querySelector("select");
@@ -191,7 +200,7 @@ class CostBehaviour {
 
             this.calculateTotal();
         }
-    }
+    }*/
 
     setResultActiviteiten() {
         const activiteiten = document.querySelector("#activiteiten");

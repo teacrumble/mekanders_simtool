@@ -25,7 +25,7 @@ class Tab {
 class TabManager{
     constructor() {
         this.inputFields = [document.querySelector("#dag input"), document.querySelector("#woon input"),
-            document.querySelector("#psycho input"), document.querySelector(".pakket select"),
+            document.querySelector("#psycho input"), document.querySelector("#pakket input"),
             document.querySelector(".actBox input"), document.querySelector(".besteedbaar input")];
         this.tabs = [new Tab(), new Tab(), new Tab(), new Tab()];
         this.tabIndex = 0;

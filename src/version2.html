@@ -136,6 +136,8 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                     <label for="rBw">B-waarden</label>
                     <input id="rPw" value="Pwaarden" name="tabelR" type="radio">
                     <label for="rPw">P-waarden</label>
+                    <input id="rPak" value="Pakketten" name="tabelR" type="radio">
+                    <label for="rPak">Pakketten</label>
                 </div>
             </div>
             <table class="container"></table>
@@ -204,18 +206,28 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                     </div>
                     <div class="col totaal"></div>
                 </div>
+
+                <div id="pakketten" class="row">
+                    <div class="col beschrijving">Begeleid werk</div>
+                    <div class="col wekelijks row">
+                        <div id="pakket" class="col-3">
+                            <input eenheid="uren" type="text">
+                            <label></label>
+                        </div>
+                        <div class="col-9">Uren per week</div>
+                    </div>
+                    <div class="col minmax row">
+                        <div class="col-3">
+                            <input class="total" type="text" tabindex="99">
+                        </div>
+                        <div class="col-9"></div>
+                    </div>
+                    <div class="col totaal"></div>
+                </div>
             </div>
 
 
             <div id="andere">
-                <div class="row" id="pakketten">
-                    <div class="col beschrijving">Begeleid werk</div>
-                    <div class="col pakket">
-                        <select></select>
-                    </div>
-                    <div class="col details"></div>
-                    <div class="col totaal"></div>
-                </div>
                 <div class="row" id="activiteiten">
                     <div class="col beschrijving">deelname activiteiten en/of bezoek ontmoetingsruimte</div>
                     <div class="col">

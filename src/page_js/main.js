@@ -27,8 +27,8 @@ function mainStart(){
     setDateMinMax();
 
     //LOAD PACKETS
-    const packets = reader.packets;
-    loadPackets(packets);
+    //const packets = reader.packets;
+    //loadPackets(packets);
 
     //SET BEHAVIOURS
     master.setMasterBehaviours();
@@ -36,7 +36,7 @@ function mainStart(){
 };
 
 //METHODS
-
+/*
 function loadPackets(packets) {
     const select = document.querySelector(".pakket select");
     const addOption = desc => {
@@ -49,7 +49,7 @@ function loadPackets(packets) {
     for (let key of packets.keys()) {
         addOption(key);
     }
-}
+}*/
 
 function setDateMinMax() {
     const inputs = document.querySelectorAll("input[type=date]");
