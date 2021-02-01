@@ -16,10 +16,14 @@ import path from "path";
 
 class FilesHandler {
     static read_json(file) {
-        //debug
+        //----------------------------------------------------------
+        //debug path
         //const fullPath = path.resolve("src/json/" + file);
-        //release
+        //----------------------------------------------------------
+        //release path
         const fullPath = path.resolve("resources/app/src/json/" + file);
+        //----------------------------------------------------------
+
         return fs.readFileSync(fullPath, 'utf8');
     }
 
