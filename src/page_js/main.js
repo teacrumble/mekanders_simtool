@@ -102,7 +102,7 @@ function checkOndersteuning_limit_dag() {
     const dag = document.querySelector("#dag input");
     const woon = document.querySelector("#woon input");
     const periode = getPeriodDays();
-    const logeren = ((eval(woon.value) / 7) * periode) <= 60;
+    const logeren = periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
 
     const max = woon.value == "" || logeren ? 5 : 7;
     checkOndersteuning_limit(dag, max);

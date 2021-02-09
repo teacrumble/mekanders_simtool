@@ -46,7 +46,8 @@ class CostBehaviour {
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
 
-            const withoutLiving = woon.value == "" || ((eval(woon.value) / 7) * periode) <= 60;
+            const periodeConstraint =  periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
+            const withoutLiving = woon.value == "" || periodeConstraint;
             let max = withoutLiving ? 5 : 7;
             const inPoints = resR == "P";
             const decimals = inPoints ? 6 : 2;
