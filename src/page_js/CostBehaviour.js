@@ -71,7 +71,8 @@ class CostBehaviour {
         totalD.onchange = e => {
             const inpVal = eval(totalD.value);
             const periode = getPeriodDays();
-            const withoutLiving = woon.value == "" || ((eval(woon.value) / 7) * periode) <= 60;
+            const periodeConstraint =  periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
+            const withoutLiving = woon.value == "" || periodeConstraint;
 
             
             if (inpVal > 0) input.value = this.rowcalculator.reverseDay(inpVal, periode, withoutLiving);
