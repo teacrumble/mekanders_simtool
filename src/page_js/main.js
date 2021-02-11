@@ -82,7 +82,7 @@ function getPeriodDays() {
     return 365;
 }
 
-function update() {-
+function update() {
     document.querySelectorAll("#ondersteuningen>:not(.header) .wekelijks input, #andere input, #andere select").forEach(i => i.dispatchEvent(new Event("change")));
 }
 

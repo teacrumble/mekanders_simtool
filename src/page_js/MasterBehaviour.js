@@ -78,6 +78,7 @@ class MasterBehaviour {
                 const category = new Category(info.dag_basis, info.dag_inc, info.woon_basis, info.woon_inc, weekendMod);
                 this.costBehaviour.rowcalculator.category = category;
                 document.querySelector("#radioTable input:checked").dispatchEvent(new Event("change"));
+                update();
             }
             else veil.removeAttribute("hidden");
         });
