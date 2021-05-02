@@ -18,10 +18,10 @@ class FilesHandler {
     static read_json(file) {
         //----------------------------------------------------------
         //debug path
-        //const fullPath = path.resolve("src/json/" + file);
+        const fullPath = path.resolve("src/json/" + file);
         //----------------------------------------------------------
         //release path
-        const fullPath = path.resolve("resources/app/src/json/" + file);
+        //const fullPath = path.resolve("resources/app/src/json/" + file);
         //----------------------------------------------------------
 
         return fs.readFileSync(fullPath, 'utf8');
