@@ -70,6 +70,7 @@ input {
 
   .mainInfo label {
       width: 100%;
+      font-weight: 600;
   }
 
       .mainInfo label[for=bValue], .mainInfo label[for=pValue] {
@@ -85,11 +86,15 @@ input {
       position: relative;
   }
 
+  .mainInfo > div:nth-of-type(2){
+      margin-top: 40px;
+  }
+
       .mainInfo #BP img {
           position: absolute;
           top: 0px;
           right: 20px;
-          height: 50%;
+          height: 55%;
       }
 
       .mainInfo #BP #bpCont {
@@ -142,11 +147,24 @@ input {
       font-weight: 700;
   }
 
-  .mainInfo .switch {
+  .mainInfo #extra_options {
       position: absolute;
-      bottom: 0;
       right: 5%;
+      margin-top: 10px;
+      width: 215px;
+      top: 50px;
   }
+
+  .mainInfo #extra_options > div {
+      display: inline-flex;
+      width: 100%;
+      margin-left: 10px;
+  }
+
+  .mainInfo #extra_options #VAPH_Budget{
+      width: 100%;
+  }
+
 
 .costs {
   position: relative;
@@ -329,10 +347,6 @@ input {
     padding-left: 5px;
  }
 
-  #andere #besteedbaarDeel {
-      margin-top: 25px;
-  }
-
       #andere #besteedbaarDeel span {
           font-size: x-small;
           font-style: italic;
@@ -481,7 +495,7 @@ input {
 #overviews, #prices {
   border-radius: 0 0 10px 10px;
   border: 2px solid black;
-  height: 465px;
+  height: 450px;
   position: relative;
 }
 
@@ -494,22 +508,30 @@ input {
       text-align: right;
       border-left: 2px dashed black;
       padding: 0 10px;
+      align-items: center;
+      display: grid;
+  }
+
+  #overviews .row td:first-of-type:not(.col-2):not(.col-1), #overviews .row th:first-of-type:not(.col-2):not(.col-1){
+    border-left: 0;
+    padding-left: 0;
+    white-space: normal;
+    min-width: 20%;
+    text-align: center;
   }
 
   #overviews .row td:first-of-type {
       font-weight: 700;
-      white-space: pre;
-      border-left: 0;
-      padding-left: 0;
+      font-size: 15px;
   }
 
-  #overviews .selected {
+  #overviews .selected, .resView .selected {
       background-color: rgba(250, 215, 150, 0.5);
       border: 1px solid rgba(0, 0, 0, 0.5);
   }
 
   #overviews td {
-      border-bottom: 1px dotted black;
+      border-bottom: 1.5px dashed black;
   }
 
   #overviews table {
@@ -550,6 +572,7 @@ input {
 }
 
   #switchTotal .switch {
+      display: inline-flex;
       margin-top: 0;
   }
 
@@ -564,12 +587,6 @@ input {
   #switchTotal input:checked + label {
       background-color: rgba(119, 119, 119, 0.5);
   }
-
-.switch {
-  display: inline-flex;
-  margin-top: 10px;
-  margin-left: 10px;
-}
 
   .switch input {
       position: absolute !important;
@@ -597,7 +614,7 @@ input {
       }
 
   .switch input:checked + label {
-      background-color: #bbb;
+      background-color: #999;
       font-weight: 700;
   }
 

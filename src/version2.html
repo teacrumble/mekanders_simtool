@@ -68,11 +68,16 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                     </div>
                     <img src="images/logo_transparant.png" alt="logo">
                 </div>
-                <div class="switch">
-                    <input id="rNew" value=true name="BP_version" type="radio" checked>
-                    <label for="rNew">Nieuw</label>
-                    <input id="rTrans" value=false name="BP_version" type="radio">
-                    <label for="rTrans">Transitie</label>
+                <div id="extra_options">
+                    <div class="switch">
+                        <input id="rNew" value=true name="BP_version" type="radio" checked>
+                        <label for="rNew">Nieuw</label>
+                        <input id="rTrans" value=false name="BP_version" type="radio">
+                        <label for="rTrans">Transitie</label>
+                    </div>
+                    <div class="symbP">
+                        <input id="VAPH_Budget" type="text" tabindex="7" placeholder="VAPH bepaald budget">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -91,9 +96,9 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                 <div class="col">
                     <label for="periode">Periode</label>
                     <div id="periode">
-                        <input id="startDt" type="date" tabindex="6">
+                        <input id="startDt" type="date" tabindex="7">
                         <span> - </span>
-                        <input id="endDt" type="date" tabindex="7">
+                        <input id="endDt" type="date" tabindex="8">
                     </div>
                     <span id="totaalDagen"></span>
                 </div>
@@ -229,7 +234,10 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 
             <div id="andere">
                 <div class="row" id="activiteiten">
-                    <div class="col beschrijving">deelname activiteiten en/of bezoek ontmoetingsruimte</div>
+                    <div class="col beschrijving">
+                        <p style="white-space:pre-line">deelname activiteiten en/of 
+                            bezoek ontmoetingsruimte</p>
+                    </div>
                     <div class="col">
                         <label class="actBox">
                             <input type="checkbox">

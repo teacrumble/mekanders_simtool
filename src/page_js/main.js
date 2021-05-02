@@ -84,6 +84,7 @@ function getPeriodDays() {
 
 function update() {
     document.querySelectorAll("#ondersteuningen>:not(.header) .wekelijks input, #andere input, #andere select").forEach(i => i.dispatchEvent(new Event("change")));
+    document.querySelectorAll("#ondersteuningen>:not(.header) .wekelijks input, #andere input, #andere select").forEach(i => i.dispatchEvent(new Event("input")));
 }
 
 function cleanTxt(txt) {
@@ -124,12 +125,18 @@ function setOndersteuning_limits() {
     const woon = document.querySelector("#woonRow input");
     const psycho = document.querySelector("#psychoRow input");
     const besteedbaar = document.querySelector("#besteedbaar");
+    const vaph = document.querySelector("#VAPH_Budget");
 
-    dag.addEventListener("change", () => checkOndersteuning_limit_dag());
-    woon.addEventListener("change", () => {
+    dag.addEventListener("input", () => checkOndersteuning_limit_dag());
+    woon.addEventListener("input", () => {
         checkOndersteuning_limit(woon, 7);
         checkOndersteuning_limit_dag();
     });
-    psycho.addEventListener("change", () => checkOndersteuning_limit(psycho, 99));
-    besteedbaar.addEventListener("change", () => checkOndersteuningLimitBesteedbaar());
+    psycho.addEventListener("input", () => checkOndersteuning_limit(psycho, 99));
+    besteedbaar.addEventListener("input", () => checkOndersteuningLimitBesteedbaar());
+
+    vaph.addEventListener("input", () => {
+        vaph.value = cleanTxt(vaph.value);
+        update();
+    });
 }

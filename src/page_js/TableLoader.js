@@ -16,11 +16,15 @@ class TableLoader{
         this.reader = reader;
     }
 
-    //CATEGORY COSTS
-    showCatRows(cats, header) {
+    getBps(){
         const bValue = document.querySelector("#bValue");
         const pValue = document.querySelector("#pValue");
-        const bps = `B${bValue.value}/P${pValue.value}`;
+        return `B${bValue.value}/P${pValue.value}`;
+    }
+
+    //CATEGORY COSTS
+    showCatRows(cats, header) {
+        const bps = this.getBps();
         const tabel = document.querySelector("#overviews table");
         tabel.innerHTML = "";
 
@@ -28,7 +32,7 @@ class TableLoader{
         cats.forEach(r => {
             let row = document.createElement("tr");
             row.classList.add("row");
-            if (r[0] == bps) row.classList.add("selected");
+            if (r[0].includes(bps)) row.classList.add("selected");
             row.innerHTML = r.map(c => `<td class="col">${c}</td>`).reduce((c1, c2) => c1 + c2);
             tabel.appendChild(row);
         })
@@ -67,11 +71,10 @@ class TableLoader{
         const header = this.generateCatHeader("dag");
         const body = new Array();
         cats.forEach(c => {
-            c.cat_ids.forEach(id => {
-                const info = c.cat_info;
-                const row = [id].concat(this.mapCats(info.dag_basis, info.dag_inc));
-                body.push(row);
-            });
+            const id = c.cat_ids.reduce((c1,c2) => `${c1} - ${c2}`);
+            const info = c.cat_info;
+            const row = [id].concat(this.mapCats(info.dag_basis, info.dag_inc));
+            body.push(row);
         });
         this.showCatRows(body, header);
     }
@@ -80,11 +83,10 @@ class TableLoader{
         const header = this.generateCatHeader("nacht");
         const body = new Array();
         cats.forEach(c => {
-            c.cat_ids.forEach(id => {
-                const info = c.cat_info;
-                const row = [id].concat(this.mapCats(info.woon_basis, info.woon_inc));
-                body.push(row);
-            });
+            const id = c.cat_ids.reduce((c1,c2) => `${c1} - ${c2}`);
+            const info = c.cat_info;
+            const row = [id].concat(this.mapCats(info.woon_basis, info.woon_inc));
+            body.push(row);
         });
         this.showCatRows(body, header);
     }
@@ -169,6 +171,7 @@ class TableLoader{
     loadBudgetCats(){
         const tabel = document.createElement("table");
         const budgetCats = this.reader.budgetCats;
+        const bps = this.getBps();
 
         const head = [["Budget Categorie", 2], ["Minimale Vereiste BP-Combinaties", 7], ["Zorggebonden Punten", 3]];
         const header = this.generateHeader(head);
@@ -177,6 +180,7 @@ class TableLoader{
         budgetCats.forEach(bc => {
             let row = document.createElement("tr");
             row.classList.add("row");
+            if (bc.vereisteBP.includes(bps)) row.classList.add("selected");
             row.innerHTML = `<td class="col-2">${bc.budget}</td> <td class="col-7">${bc.vereisteBP.join(" - ")}</td> <td class="col-3">${ fixed_p(bc.ZorggebondenP, 6)}</td>`;
             tabel.append(row);
         });

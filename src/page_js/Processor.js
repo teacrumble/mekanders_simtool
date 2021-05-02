@@ -129,6 +129,8 @@ class Processor {
 
         //neem de main div en plaats deze vanboven
         container.appendChild(document.querySelector(".mainInfo").parentNode.cloneNode(true));
+        const budg = container.querySelector("#VAPH_Budget");
+        if(budg.value == "") budg.value = " ";
         container.lastElementChild.classList.remove("container");
         container.lastElementChild.classList.add("printable");
 

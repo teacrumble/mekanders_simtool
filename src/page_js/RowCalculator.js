@@ -27,22 +27,22 @@ class RowCalculator {
     }
 
     //calculate costs
-    calculateCost(weeklyPrice, days, inpoints) {
-        const periodPrice = (weeklyPrice / 365) * days;
+    calculateCost(weeklyPrice, days, inpoints, ratio) {
+        const periodPrice = ((weeklyPrice / 365) * days) * ratio;
         if (inpoints) return periodPrice;
         return periodPrice * this.valutaRate;
     }
-    calculateCostDay(weeklyAmount, days, inpoints) {
+    calculateCostDay(weeklyAmount, days, inpoints, ratio=1) {
         const weeklyPrice = this.category.getWeeklyCostDay(weeklyAmount);
-        return this.calculateCost(weeklyPrice, days, inpoints);
+        return this.calculateCost(weeklyPrice, days, inpoints, ratio);
     }
-    calculateCostLiving(weeklyAmount, days, inpoints) {
+    calculateCostLiving(weeklyAmount, days, inpoints, ratio=1) {
         const weeklyPrice = this.category.getWeeklyCostLiving(weeklyAmount);
-        return this.calculateCost(weeklyPrice, days, inpoints);
+        return this.calculateCost(weeklyPrice, days, inpoints, ratio);
     }
-    calculateCostPsycho(weeklyAmount, days, inpoints) {
+    calculateCostPsycho(weeklyAmount, days, inpoints, ratio=1) {
         const weeklyPrice = this.GetWeeklyPricePsycho(weeklyAmount);
-        return this.calculateCost(weeklyPrice, days, inpoints);
+        return this.calculateCost(weeklyPrice, days, inpoints, ratio);
     }
 
     //minmax

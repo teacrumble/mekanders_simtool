@@ -33,16 +33,17 @@ class MasterBehaviour {
         const veil = document.querySelector("#veil");
 
         //behaviours
-        budgetE.onchange = () => {
+        budgetE.addEventListener("input", () => {
             budgetP.value = blankOnZero(fixed_p(Math.abs(budgetE.value) / this.persoonsvolgend, 6));
             update();
             if (veil.getAttribute("hidden") != null) this.costBehaviour.calculateTotal();
-        }
-        budgetP.onchange = () => {
+        });
+
+        budgetP.addEventListener("input", () => {
             budgetE.value = blankOnZero(fixed_p(Math.abs(budgetP.value) * this.persoonsvolgend, 2));
             update();
             if (veil.getAttribute("hidden") != null) this.costBehaviour.calculateTotal();
-        }
+        });
     }
 
     setPeriodDays() {
@@ -63,7 +64,7 @@ class MasterBehaviour {
         const inputs = [bValue, pValue];
         const weekendMod = this.reader.global.weekend_modifier;
 
-        inputs.forEach(inp => inp.onchange = () => {
+        inputs.forEach(inp => inp.addEventListener("input", () => {
             const res = bValue.value != "" && pValue.value != "";
             const bps = `B${bValue.value}/P${pValue.value}`;
 
@@ -81,7 +82,7 @@ class MasterBehaviour {
                 update();
             }
             else veil.removeAttribute("hidden");
-        });
+        }));
     }
 
     changeUsedFile() {

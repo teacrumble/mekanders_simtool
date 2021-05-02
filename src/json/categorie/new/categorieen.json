@@ -1,6 +1,6 @@
 [
 {
-    "cat_ids": ["B3/P0", "B3/P1", "B3/P2", "B6/P1", "B8/P1", "B2/P3"],
+    "cat_ids": ["B3/P0", "B3/P1", "B3/P2", "B2/P3"],
     "cat_info":{
         "dag_basis": 1.401583,
         "dag_inc": 0.901018,
@@ -9,7 +9,7 @@
     }
 },
 {
-    "cat_ids": ["B4/P0"],
+    "cat_ids": ["B4/P0", "B1/P5", "B1/P4", "B5/P0"],
     "cat_info":{
         "dag_basis": 2.495167,
         "dag_inc": 1.604035,
@@ -18,7 +18,7 @@
     }
 },
 {
-    "cat_ids": ["B4/P1","B4/P2","B8/P2","B3/P3","B2/P4","B2/P5","B2/P6","B2/P7"],
+    "cat_ids": ["B4/P1","B4/P2","B3/P3","B2/P4","B2/P5","B6/P1","B5/P1"],
     "cat_info":{
         "dag_basis": 2.842583,
         "dag_inc": 1.827375,
@@ -27,7 +27,16 @@
     }
 },
 {
-    "cat_ids": ["B6/P2", "B4/P3", "B3/P4"],
+    "cat_ids": ["B5/P2"],
+    "cat_info":{
+        "dag_basis": 3.190917,
+        "dag_inc": 2.051303,
+        "woon_basis": 3.771083,
+        "woon_inc": 2.424268
+    }
+},
+{
+    "cat_ids": ["B6/P2", "B4/P3", "B3/P4","B1/P6", "B1/P7"],
     "cat_info":{
         "dag_basis": 3.609833,
         "dag_inc": 2.320607,
@@ -36,7 +45,7 @@
     }
 },
 {
-    "cat_ids": ["B3/P5", "B5/P3"],
+    "cat_ids": ["B3/P5", "B5/P3", "B7/P1", "B2/P6", "B6/P1", "B2/P7"],
     "cat_info":{
         "dag_basis": 4.024167,
         "dag_inc": 2.586964,
@@ -45,7 +54,7 @@
     }
 },
 {
-    "cat_ids": ["B6/P3", "B4/P4", "B3/P7"],
+    "cat_ids": ["B6/P3", "B4/P4", "B7/P2"],
     "cat_info":{
         "dag_basis": 4.34225,
         "dag_inc": 2.791446,
@@ -54,7 +63,7 @@
     }
 },
 {
-    "cat_ids": ["B3/P6"],
+    "cat_ids": ["B3/P6", "B4/P5"],
     "cat_info":{
         "dag_basis": 4.660333,
         "dag_inc": 2.995929,
@@ -63,7 +72,7 @@
     }
 },
 {
-    "cat_ids": ["B4/P5", "B5/P4"],
+    "cat_ids": ["B8/P1", "B5/P4"],
     "cat_info":{
         "dag_basis": 4.965583,
         "dag_inc": 3.192161,
@@ -72,7 +81,7 @@
     }
 },
 {
-    "cat_ids": ["B5/P5"],
+    "cat_ids": ["B5/P5", "B7/P3", "B8/P2", "B6/P4"],
     "cat_info":{
         "dag_basis": 5.27175,
         "dag_inc": 3.388982,
@@ -81,7 +90,7 @@
     }
 },
 {
-    "cat_ids": ["B8/P3", "B6/P4", "B6/P5", "B4/P6"],
+    "cat_ids": ["B8/P3", "B6/P5", "B4/P6"],
     "cat_info":{
         "dag_basis": 5.698,
         "dag_inc": 3.663,
@@ -90,7 +99,7 @@
     }
 },
 {
-    "cat_ids": ["B7/P4", "B5/P6"],
+    "cat_ids": ["B7/P4", "B5/P6", "B3/P7"],
     "cat_info":{
         "dag_basis": 6.249833,
         "dag_inc": 4.01775,

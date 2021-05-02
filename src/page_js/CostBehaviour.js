@@ -31,6 +31,18 @@ class CostBehaviour {
         });
     }
 
+    getRatio(){
+        const bValue = document.querySelector("#bValue");
+        const pValue = document.querySelector("#pValue");
+        const bps = `B${bValue.value}/P${pValue.value}`;
+
+        const vaph = document.querySelector("#VAPH_Budget").value;
+        const normalBudget = [...this.reader.budgetCats].reverse().find(x => x.vereisteBP.includes(bps));
+
+        if(vaph == "" || normalBudget == undefined) return 1;
+        return vaph / normalBudget.ZorggebondenP;
+    }
+
     //VERANDER: setResult voor elke row herzien en verbeteren
     setResultDag() {
         //select elements
@@ -39,9 +51,10 @@ class CostBehaviour {
         const minmax = dag.querySelector(".minmax .col-9");
         const totalD = dag.querySelector(".minmax input");
         const totaal = dag.querySelector(".totaal");
-        const input = dag.querySelector("input");        
+        const input = dag.querySelector("input");   
 
-        input.onchange = e => {
+        input.addEventListener("input", e => {
+            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -57,7 +70,7 @@ class CostBehaviour {
             totalD.value =   isInvalid(boundaries.total) ? "" : boundaries.total;
 
             if (inpVal <= max && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostDay(inpVal, periode, inPoints);
+                const price = this.rowcalculator.calculateCostDay(inpVal, periode, inPoints, ratio);
                 minmax.innerHTML = "Totaal " +boundaries.show();
                 totaal.innerHTML = fixed_p(price, decimals);
             } else {
@@ -66,9 +79,9 @@ class CostBehaviour {
             }
 
             this.calculateTotal();
-        }
+        });
 
-        totalD.onchange = e => {
+        totalD.addEventListener("input", e => {
             const inpVal = eval(totalD.value);
             const periode = getPeriodDays();
             const periodeConstraint =  periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
@@ -78,8 +91,8 @@ class CostBehaviour {
             if (inpVal > 0) input.value = this.rowcalculator.reverseDay(inpVal, periode, withoutLiving);
             else input.value = "";
 
-            input.dispatchEvent(new Event("change"));
-        };
+            input.dispatchEvent(new Event("input"));
+        });
         
     }
 
@@ -90,7 +103,8 @@ class CostBehaviour {
         const totaal = woon.querySelector(".totaal");
         const input = woon.querySelector("input");
 
-        input.onchange = e => {
+        input.addEventListener("input", e => {
+            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -102,7 +116,7 @@ class CostBehaviour {
             totalD.value =  isInvalid(boundaries.total)  ? "" : boundaries.total;
 
             if (inpVal <= 7 && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostLiving(inpVal, periode, inPoints);
+                const price = this.rowcalculator.calculateCostLiving(inpVal, periode, inPoints, ratio);
                 minmax.innerHTML = "Totaal " + boundaries.show();
                 totaal.innerHTML = fixed_p(price, decimals);
             } else {
@@ -112,19 +126,19 @@ class CostBehaviour {
 
             if (e.isTrusted || e.detail == "total") update();
             this.calculateTotal();
-        }
+        });
 
 
 
-        totalD.onchange = e => {
+        totalD.addEventListener("input", e => {
             const inpVal = eval(totalD.value);
             const periode = getPeriodDays();
             
             if (inpVal > 0) input.value = this.rowcalculator.reverseWoon(inpVal, periode);
             else input.value = "";
 
-            input.dispatchEvent(new CustomEvent("change", {detail: "total"}));
-        };
+            input.dispatchEvent(new CustomEvent("input", {detail: "total"}));
+        });
     }
 
     setResultPsychoPak(element){
@@ -133,7 +147,8 @@ class CostBehaviour {
         const totaal = element.querySelector(".totaal");
         const input = element.querySelector("input");
 
-        input.onchange = e => {
+        input.addEventListener("input", e => {
+            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -145,7 +160,7 @@ class CostBehaviour {
             totalD.value =  isInvalid(boundaries.total)  ? "" : boundaries.total;
 
             if (inpVal <= 99 && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostPsycho(inpVal, periode, inPoints);
+                const price = this.rowcalculator.calculateCostPsycho(inpVal, periode, inPoints, ratio);
                 minmax.innerHTML = "Totaal " + boundaries.show();
                 totaal.innerHTML = fixed_p(price, decimals);
             } else {
@@ -154,16 +169,16 @@ class CostBehaviour {
             }
 
             this.calculateTotal();
-        }
+        });
 
-        totalD.onchange = e => {
+        totalD.addEventListener("input", e => {
             const inpVal = eval(totalD.value);
             const periode = getPeriodDays();
             
             if (inpVal > 0) input.value = this.rowcalculator.reversePsycho(inpVal, periode);
             else input.value = "";
-            input.dispatchEvent(new Event("change"));
-        };
+            input.dispatchEvent(new Event("input"));
+        });
     }
 
     setResultPsycho() {
@@ -209,7 +224,7 @@ class CostBehaviour {
         const acts = activiteiten.querySelector("input");
         const actTotaal = activiteiten.querySelector(".totaal");
 
-        acts.onchange = () => {
+        acts.addEventListener("input", () => {
             const resR = document.querySelector("#switchTotal input:checked");
             const inPoints = resR.value == "P";
             const decimals = inPoints ? 6 : 2;
@@ -221,7 +236,7 @@ class CostBehaviour {
             else actTotaal.innerHTML = "";
 
             this.calculateTotal();
-        }
+        });
     }
 
     setResultBesteedbaar() {
@@ -230,7 +245,7 @@ class CostBehaviour {
         const besteedPunten = besteedbaar.querySelector(".totaal");
         const persoonlijkPunten = document.querySelector("#budgetP");
 
-        besteedInput.onchange = () => {
+        besteedInput.addEventListener("input", () => {
             const persoonlijk = eval(persoonlijkPunten.value + 0);
             const max = persoonlijk <= 34.81 ? 1800 : 3600;
             const resR = document.querySelector("#switchTotal input:checked");
@@ -245,7 +260,7 @@ class CostBehaviour {
             else besteedPunten.innerHTML = "";
 
             this.calculateTotal();
-        }
+        });
     }
 
     //CALCULATE TOTAL HERZIEN
