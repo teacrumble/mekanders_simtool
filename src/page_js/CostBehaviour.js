@@ -16,6 +16,9 @@ class CostBehaviour {
     constructor(rowcalculator, reader) {
         this.rowcalculator = rowcalculator;
         this.reader = reader;
+
+        this.totDag = 0;
+        this.totWoon = 0;
     }
 
     totalsChange() {
@@ -31,19 +34,7 @@ class CostBehaviour {
         });
     }
 
-    getRatio(){
-        const bValue = document.querySelector("#bValue");
-        const pValue = document.querySelector("#pValue");
-        const bps = `B${bValue.value}/P${pValue.value}`;
 
-        const vaph = document.querySelector("#VAPH_Budget").value;
-        const normalBudget = [...this.reader.budgetCats].reverse().find(x => x.vereisteBP.includes(bps));
-
-        if(vaph == "" || normalBudget == undefined) return 1;
-        return vaph / normalBudget.ZorggebondenP;
-    }
-
-    //VERANDER: setResult voor elke row herzien en verbeteren
     setResultDag() {
         //select elements
         const woon = document.querySelector("#woon input");
@@ -54,7 +45,6 @@ class CostBehaviour {
         const input = dag.querySelector("input");   
 
         input.addEventListener("input", e => {
-            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -70,7 +60,8 @@ class CostBehaviour {
             totalD.value =   isInvalid(boundaries.total) ? "" : boundaries.total;
 
             if (inpVal <= max && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostDay(inpVal, periode, inPoints, ratio);
+                const price = this.rowcalculator.calculateCostDay(inpVal, periode, inPoints);
+                this.totDag = price;
                 minmax.innerHTML = "Totaal " +boundaries.show();
                 totaal.innerHTML = fixed_p(price, decimals);
             } else {
@@ -104,7 +95,6 @@ class CostBehaviour {
         const input = woon.querySelector("input");
 
         input.addEventListener("input", e => {
-            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -116,9 +106,10 @@ class CostBehaviour {
             totalD.value =  isInvalid(boundaries.total)  ? "" : boundaries.total;
 
             if (inpVal <= 7 && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostLiving(inpVal, periode, inPoints, ratio);
-                minmax.innerHTML = "Totaal " + boundaries.show();
+                const price = this.rowcalculator.calculateCostLiving(inpVal, periode, inPoints);
+                this.totWoon = price;
                 totaal.innerHTML = fixed_p(price, decimals);
+                minmax.innerHTML = "Totaal " + boundaries.show();
             } else {
                 minmax.innerHTML = "Totaal ";
                 totaal.innerHTML = "";
@@ -148,7 +139,6 @@ class CostBehaviour {
         const input = element.querySelector("input");
 
         input.addEventListener("input", e => {
-            const ratio = this.getRatio();
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
             const inpVal = eval(input.value);
@@ -160,7 +150,7 @@ class CostBehaviour {
             totalD.value =  isInvalid(boundaries.total)  ? "" : boundaries.total;
 
             if (inpVal <= 99 && inpVal > 0) {
-                const price = this.rowcalculator.calculateCostPsycho(inpVal, periode, inPoints, ratio);
+                const price = this.rowcalculator.calculateCostPsycho(inpVal, periode, inPoints);
                 minmax.innerHTML = "Totaal " + boundaries.show();
                 totaal.innerHTML = fixed_p(price, decimals);
             } else {
@@ -263,7 +253,6 @@ class CostBehaviour {
         });
     }
 
-    //CALCULATE TOTAL HERZIEN
     calculateTotal() {
         //resultrows
         const resRow = document.querySelector("#res");
@@ -281,6 +270,7 @@ class CostBehaviour {
         const totalen = document.querySelectorAll("#ondersteuningen>div:not(.header) .totaal, #andere .totaal");
         let result = 0; 
         totalen.forEach(t => result += eval(`${t.innerHTML}+0`));
+
         resRow.innerHTML = result > 0 ? fixed_p(result, resType) : "";
 
         if (budget.value != "" && resRow.innerHTML != "") {
@@ -292,6 +282,52 @@ class CostBehaviour {
             totRow.setAttribute("hidden", "");
         }
         this.totalsChange();
+        this.setRatios();
+    }
+
+    ratioVaph(price, result, variable){
+        const resR = document.querySelector("#switchTotal input:checked").value;
+        let vaph = document.querySelector("#VAPH_Budget").value;
+        vaph = (resR == "P") ? vaph : vaph*this.reader.global.punt_euro_rate;
+    
+        const res_cons = result - variable;
+    
+        const vaph_iso = vaph - res_cons;
+    
+        if(vaph != "" && result > 0){
+            const ratio = vaph_iso / (this.totDag+this.totWoon);
+
+            if(ratio > 1) return price * ratio;
+        }
+        return price;
+    }
+    
+    setRatios(){
+        //get result
+        const woon = eval(`${document.querySelector("#woonRow .totaal").innerHTML}+0`);
+        const dag = eval (`${document.querySelector("#dagRow .totaal").innerHTML}+0`);
+    
+        //result
+        const totalen = document.querySelectorAll("#ondersteuningen>div:not(.header) .totaal, #andere .totaal");
+        let result = 0; 
+        totalen.forEach(t => result += eval(`${t.innerHTML}+0`));
+    
+        //set ratios
+        const variable = dag + woon;
+        const newWoon = this.ratioVaph(this.totWoon, result, variable);
+        const newDag = this.ratioVaph(this.totDag, result, variable);
+    
+        //set totals
+        const resR = document.querySelector("#switchTotal input:checked").value;
+        const resType = resR == "P" ? 6 : 2;
+        document.querySelector("#dagRow .totaal").innerHTML = newDag > 0 ? fixed_p(newDag, resType) : "";
+        document.querySelector("#woonRow .totaal").innerHTML = newWoon > 0 ? fixed_p(newWoon, resType) : "";
+    
+        //set Result
+        result = result - variable;
+        result = result + newDag + newWoon;
+    
+        document.querySelector("#res").innerHTML = result > 0 ? fixed_p(result, resType) : "";
     }
 
     changeSymbols() {

@@ -91,7 +91,7 @@ class MasterBehaviour {
         radVersions.forEach(r => r.onchange = () => {
             //set category
             this.newCats = document.querySelector(".mainInfo .switch input:checked").value === "true";
-            document.querySelector("#bValue").dispatchEvent(new Event("change"));
+            document.querySelector("#bValue").dispatchEvent(new Event("input"));
 
             //update de fields
             update();
