@@ -69,11 +69,15 @@ class Processor {
     }
 
     printPreviewBehaviour(resV) {
-        document.querySelector("#btnCancel").onclick = () => document.body.removeChild(resV);
+        document.querySelector("#btnCancel").onclick = () => {
+            document.body.removeChild(resV);
+            document.querySelectorAll(".printable").forEach(p => document.body.removeChild(p));
+        }
         document.querySelector("#btnDownload").onclick = () => {
             const pdf = this.getPdf();
             ipcRenderer.send("download", pdf);
             document.body.removeChild(resV);
+            document.querySelectorAll(".printable").forEach(p => document.body.removeChild(p));
         }
     }
 
@@ -104,6 +108,9 @@ class Processor {
         resultType.dispatchEvent(new Event("click"));
         const cost = document.querySelector(".costs").cloneNode(true);
         cost.querySelector("#others").setAttribute("hidden", "");
+
+        const budg = cost.querySelector("#VAPH_Budget");
+        if(budg.value == "") budg.value = " ";
         
         //const selectedOption = Array.from(document.querySelectorAll(`.costs select option`)).filter(x => x.selected)[0];
         //Array.from(cost.querySelectorAll(`.costs select option`)).filter(x => x.value == selectedOption.value)[0].selected = true;
@@ -129,8 +136,6 @@ class Processor {
 
         //neem de main div en plaats deze vanboven
         container.appendChild(document.querySelector(".mainInfo").parentNode.cloneNode(true));
-        const budg = container.querySelector("#VAPH_Budget");
-        if(budg.value == "") budg.value = " ";
         container.lastElementChild.classList.remove("container");
         container.lastElementChild.classList.add("printable");
 
@@ -145,9 +150,12 @@ class Processor {
                 let cont = usedCount < 2 ? container : container2;
                 this.copyTab(cont, i, resultType);
                 usedCount++;
-                cont.querySelectorAll("input[type='radio']").forEach(el => el.name += "P");
             }
         }
+
+        //namechange radiobuttons
+        container.querySelectorAll("input[type='radio']").forEach(el => el.name += "P");
+        container2.querySelectorAll("input[type='radio']").forEach(el => el.name += "P");
 
         //voeg buttons toe
         const buttons = document.createElement("div");
@@ -167,6 +175,5 @@ class Processor {
             resView.classList.add("resView");
             document.body.appendChild(resView);
         }).then(() => this.printPreviewBehaviour(resView));
-        
     }
 }

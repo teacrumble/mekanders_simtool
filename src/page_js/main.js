@@ -29,6 +29,7 @@ function mainStart(){
     //LOAD PACKETS
     //const packets = reader.packets;
     //loadPackets(packets);
+    euro_conv = reader.global.punt_euro_rate;
 
     //SET BEHAVIOURS
     master.setMasterBehaviours();
@@ -121,12 +122,33 @@ function checkOndersteuningLimitBesteedbaar() {
     else lblError.textContent = "";
 }
 
+function getRatio(){
+    const resR = document.querySelector("#switchTotal input:checked").value;
+    const inPoints = resR == "P";
+    const vaph = document.querySelector("#VAPH_Budget").value * (inPoints ? 1 : euro_conv);
+    
+    const res = document.querySelector("#res").innerHTML;
+    
+    if(vaph != "" && res != ""){
+        const totalen = document.querySelectorAll("#dagRow .totaal, #woonRow .totaal, #psychoRow .totaal");
+        let variables = 0; 
+        totalen.forEach(t => variables += eval(`${t.innerHTML}+0`));
+
+        const constants = eval(`${res}+0`) - variables;
+
+        return (vaph - constants) / variables;
+    }
+
+    return 1;
+}
+
 function setOndersteuning_limits() {
     const dag = document.querySelector("#dagRow input");
     const woon = document.querySelector("#woonRow input");
     const psycho = document.querySelector("#psychoRow input");
     const besteedbaar = document.querySelector("#besteedbaar");
     const vaph = document.querySelector("#VAPH_Budget");
+    const vlock = document.querySelector("#VAPH_Lock");
 
     dag.addEventListener("input", () => checkOndersteuning_limit_dag());
     woon.addEventListener("input", () => {
@@ -138,6 +160,31 @@ function setOndersteuning_limits() {
 
     vaph.addEventListener("input", () => {
         vaph.value = cleanTxt(vaph.value);
+        update();
+    });
+
+    vlock.addEventListener("change", () => {
+        if(vlock.checked){
+            //lock
+            vlock.nextElementSibling.firstElementChild.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="crimson" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
+            `
+            vaph.disabled = true;
+            document.querySelector("#VAPH_Ratio").value = getRatio();
+        }
+        else {
+            //unlock
+            vlock.nextElementSibling.firstElementChild.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+                <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+            </svg>
+            `
+            vaph.disabled = false;
+            document.querySelector("#VAPH_Ratio").value = 1;
+        }
+
         update();
     });
 }

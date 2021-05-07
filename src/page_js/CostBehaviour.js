@@ -16,9 +16,6 @@ class CostBehaviour {
     constructor(rowcalculator, reader) {
         this.rowcalculator = rowcalculator;
         this.reader = reader;
-
-        this.totDag = 0;
-        this.totWoon = 0;
     }
 
     totalsChange() {
@@ -43,6 +40,7 @@ class CostBehaviour {
         const totalD = dag.querySelector(".minmax input");
         const totaal = dag.querySelector(".totaal");
         const input = dag.querySelector("input");   
+        const ratio = document.querySelector("#VAPH_Ratio");
 
         input.addEventListener("input", e => {
             const periode = getPeriodDays();
@@ -61,9 +59,8 @@ class CostBehaviour {
 
             if (inpVal <= max && inpVal > 0) {
                 const price = this.rowcalculator.calculateCostDay(inpVal, periode, inPoints);
-                this.totDag = price;
+                totaal.innerHTML = fixed_p(price*ratio.value, decimals);
                 minmax.innerHTML = "Totaal " +boundaries.show();
-                totaal.innerHTML = fixed_p(price, decimals);
             } else {
                 minmax.innerHTML = "Totaal ";
                 totaal.innerHTML = "";
@@ -93,12 +90,13 @@ class CostBehaviour {
         const totalD = woon.querySelector(".minmax input");
         const totaal = woon.querySelector(".totaal");
         const input = woon.querySelector("input");
+        const ratio = document.querySelector("#VAPH_Ratio");
 
         input.addEventListener("input", e => {
             const periode = getPeriodDays();
             const resR = document.querySelector("#switchTotal input:checked").value;
-            const inpVal = eval(input.value);
             const inPoints = resR == "P";
+            const inpVal = eval(input.value);
             const decimals = inPoints ? 6 : 2;
 
             const isInvalid = v => v!== v || v == 0;
@@ -107,8 +105,7 @@ class CostBehaviour {
 
             if (inpVal <= 7 && inpVal > 0) {
                 const price = this.rowcalculator.calculateCostLiving(inpVal, periode, inPoints);
-                this.totWoon = price;
-                totaal.innerHTML = fixed_p(price, decimals);
+                totaal.innerHTML = fixed_p(price*ratio.value, decimals);
                 minmax.innerHTML = "Totaal " + boundaries.show();
             } else {
                 minmax.innerHTML = "Totaal ";
@@ -132,11 +129,12 @@ class CostBehaviour {
         });
     }
 
-    setResultPsychoPak(element){
+    setResultPsychoPak(element, ratiod){
         const minmax = element.querySelector(".minmax .col-9");
         const totalD = element.querySelector(".minmax input");
         const totaal = element.querySelector(".totaal");
         const input = element.querySelector("input");
+        const ratio = document.querySelector("#VAPH_Ratio");
 
         input.addEventListener("input", e => {
             const periode = getPeriodDays();
@@ -151,8 +149,8 @@ class CostBehaviour {
 
             if (inpVal <= 99 && inpVal > 0) {
                 const price = this.rowcalculator.calculateCostPsycho(inpVal, periode, inPoints);
+                totaal.innerHTML = fixed_p( ratiod ? price*ratio.value : price, decimals);
                 minmax.innerHTML = "Totaal " + boundaries.show();
-                totaal.innerHTML = fixed_p(price, decimals);
             } else {
                 minmax.innerHTML = "Totaal ";
                 totaal.innerHTML = "";
@@ -173,12 +171,12 @@ class CostBehaviour {
 
     setResultPsycho() {
         const psycho = document.querySelector("#psychoRow");
-        this.setResultPsychoPak(psycho);
+        this.setResultPsychoPak(psycho, true);
     }
 
     setResultPakket(){
         const pakket = document.querySelector("#pakketten");
-        this.setResultPsychoPak(pakket);
+        this.setResultPsychoPak(pakket, false);
     }
     /*
     setResultPakket() {
@@ -282,52 +280,6 @@ class CostBehaviour {
             totRow.setAttribute("hidden", "");
         }
         this.totalsChange();
-        this.setRatios();
-    }
-
-    ratioVaph(price, result, variable){
-        const resR = document.querySelector("#switchTotal input:checked").value;
-        let vaph = document.querySelector("#VAPH_Budget").value;
-        vaph = (resR == "P") ? vaph : vaph*this.reader.global.punt_euro_rate;
-    
-        const res_cons = result - variable;
-    
-        const vaph_iso = vaph - res_cons;
-    
-        if(vaph != "" && result > 0){
-            const ratio = vaph_iso / (this.totDag+this.totWoon);
-
-            if(ratio > 1) return price * ratio;
-        }
-        return price;
-    }
-    
-    setRatios(){
-        //get result
-        const woon = eval(`${document.querySelector("#woonRow .totaal").innerHTML}+0`);
-        const dag = eval (`${document.querySelector("#dagRow .totaal").innerHTML}+0`);
-    
-        //result
-        const totalen = document.querySelectorAll("#ondersteuningen>div:not(.header) .totaal, #andere .totaal");
-        let result = 0; 
-        totalen.forEach(t => result += eval(`${t.innerHTML}+0`));
-    
-        //set ratios
-        const variable = dag + woon;
-        const newWoon = this.ratioVaph(this.totWoon, result, variable);
-        const newDag = this.ratioVaph(this.totDag, result, variable);
-    
-        //set totals
-        const resR = document.querySelector("#switchTotal input:checked").value;
-        const resType = resR == "P" ? 6 : 2;
-        document.querySelector("#dagRow .totaal").innerHTML = newDag > 0 ? fixed_p(newDag, resType) : "";
-        document.querySelector("#woonRow .totaal").innerHTML = newWoon > 0 ? fixed_p(newWoon, resType) : "";
-    
-        //set Result
-        result = result - variable;
-        result = result + newDag + newWoon;
-    
-        document.querySelector("#res").innerHTML = result > 0 ? fixed_p(result, resType) : "";
     }
 
     changeSymbols() {

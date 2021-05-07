@@ -1,6 +1,13 @@
+html {
+    height: 100%;
+    /*background: linear-gradient(155deg, whitesmoke 0%, #72577a 50%, whitesmoke 100%);*/
+    background: linear-gradient(155deg, whitesmoke 0%, #8d7c92 50%, whitesmoke 100%);
+}
+
 body {
     font-size: 95%;
     font-family: Arial;
+    background-color: transparent;
 }
 
 #overviews, #manual {
@@ -84,10 +91,6 @@ input {
   .mainInfo #BP {
       font-size: xx-large;
       position: relative;
-  }
-
-  .mainInfo > div:nth-of-type(2){
-      margin-top: 40px;
   }
 
       .mainInfo #BP img {
@@ -276,7 +279,7 @@ input {
 
 
 #ondersteuningen {
-  margin-top: 45px;
+  margin-top: 60px;
 }
 
   #ondersteuningen .header .col {
@@ -495,7 +498,7 @@ input {
 #overviews, #prices {
   border-radius: 0 0 10px 10px;
   border: 2px solid black;
-  height: 450px;
+  height: 475px;
   position: relative;
 }
 
@@ -572,20 +575,69 @@ input {
   right: 2%;
 }
 
-  #switchTotal .switch {
+#VAPH {
+    display: inline-flex;
+    position: absolute;
+    right: 8%;
+    top: 5px;
+    height: fit-content;
+}
+
+#VAPH input[type="text"]{
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 10px 0 0 10px;
+    padding: 8px 8px;
+}
+
+
+#VAPH > div:first-child{
+    width: 50%;
+}
+
+#budgetLock label:hover{
+    cursor: pointer;
+}
+
+#budgetLock label {
+    margin-top: 0;
+    height: 100%;
+    position: relative;
+    width: 32px;
+    padding: 0;
+}
+
+#budgetLock label div{
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    left: 0;
+    top: 0;
+    padding: 15%;
+}
+
+#budgetLock label div svg {
+    width: 100%;
+    height: 100%;
+}
+
+
+  #prices .switch {
       display: inline-flex;
       margin-top: 0;
   }
 
-  #switchTotal label {
+  #prices label {
       background-color: rgba(0, 0, 0, 0.07);
+      margin-left: -1px;
   }
 
-      #switchTotal label:hover {
-          background-color: rgba(125, 125, 125, 0.3);
-      }
+    #prices label:hover {
+        background-color: rgba(125, 125, 125, 0.3);
+    }
 
-  #switchTotal input:checked + label {
+  #prices input:checked + label , #prices input:disabled{
       background-color: rgba(119, 119, 119, 0.5);
   }
 

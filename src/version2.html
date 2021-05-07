@@ -75,9 +75,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                         <input id="rTrans" value=false name="BP_version" type="radio">
                         <label for="rTrans">Transitie</label>
                     </div>
-                    <div class="symbP">
-                        <input id="VAPH_Budget" type="text" tabindex="7" placeholder="VAPH bepaald budget">
-                    </div>
                 </div>
             </div>
             <div class="row">
@@ -149,6 +146,22 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
         </div>
 
         <div id="prices" class="bgred">
+            <div id="VAPH">
+                <div class="symbP">
+                    <input id="VAPH_Budget" type="text" placeholder="VAPH">
+                    <input type="hidden" id="VAPH_Ratio" value="1">
+                </div>
+                <div id="budgetLock" class="switch">
+                    <input id="VAPH_Lock" type="checkbox">
+                    <label for="VAPH_Lock">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-unlock-fill" viewBox="0 0 16 16">
+                                <path d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2z"/>
+                              </svg> 
+                        </div>
+                    </label>
+                </div>
+            </div>
             <div id="switchTotal">
                 <div class="switch">
                     <input id="rP" value="P" name="resR" type="radio">
