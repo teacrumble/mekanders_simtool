@@ -13,7 +13,7 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 
 class MinMax {
     constructor(total, extension) {
-        this.total = Math.round(total);
+        this.total = Math.round(total*2)/2;
         this.min = Math.ceil(total * 0.9);
         this.max = Math.ceil(total * 1.05);
         this.extension = extension;

@@ -69,7 +69,7 @@ class CostBehaviour {
             this.calculateTotal();
         });
 
-        totalD.addEventListener("input", e => {
+        totalD.addEventListener("blur", e => {
             const inpVal = eval(totalD.value);
             const periode = getPeriodDays();
             const periodeConstraint =  periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
@@ -80,6 +80,7 @@ class CostBehaviour {
             else input.value = "";
 
             input.dispatchEvent(new Event("input"));
+
         });
         
     }
