@@ -51,8 +51,9 @@ class RowCalculator {
         return new MinMax(total, extension);
     }
     getMinMaxDay(weeklyAmount, days, withoutLiving) {
-        const newAMount = withoutLiving ? (weeklyAmount * 245) / 260 : weeklyAmount;
-        const result = this.getMinMax(newAMount, days, "dagen");
+        //const newAmount = withoutLiving ? (weeklyAmount * 245) / 260 : weeklyAmount;
+        const newAmount = weeklyAmount;
+        const result = this.getMinMax(newAmount, days, "dagen");
         result.changeMax(days);
         return result;
     }
@@ -62,7 +63,8 @@ class RowCalculator {
         return result;
     }
     getMinMaxPsycho(weeklyAmount, days) {
-        const newAmount = (weeklyAmount * 44) / 52;
+        //const newAmount = (weeklyAmount * 44) / 52;
+        const newAmount = weeklyAmount;
         return this.getMinMax(newAmount, days, "uren");
     }
 
@@ -72,7 +74,8 @@ class RowCalculator {
     }
 
     reverseDay(total, days, withoutLiving){
-        const newAmount = withoutLiving ? (total * 260) / 245 : total;
+        //const newAmount = withoutLiving ? (total * 260) / 245 : total;
+        const newAmount = total;
         return this.reverseTotal(newAmount, days);
     }
 
@@ -81,7 +84,8 @@ class RowCalculator {
     }
 
     reversePsycho(total, days){
-        const newAmount = (total * 52) / 44;
+        //const newAmount = (total * 52) / 44;
+        const newAmount = total;
         return this.reverseTotal(newAmount, days);
     }
     
