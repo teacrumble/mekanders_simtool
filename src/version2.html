@@ -189,22 +189,47 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
                     <div class="col totaal"></div>
                 </div>
 
-                <div id="dagRow" class="row">
-                    <div class="col beschrijving">Dagondersteuning</div>
-                    <div class="col wekelijks row">
-                        <div id="dag" class="col-3">
-                            <input eenheid="dagen" type="text">
-                            <label></label>
+                <div id="dagOndersteuning">
+                    <div id="dagRow" class="row">
+                        <div class="col beschrijving">Dagondersteuning</div>
+                        <div class="col wekelijks row">
+                            <div id="dag" class="col-3">
+                                <input eenheid="dagen" type="text">
+                                <label></label>
+                            </div>
+                            <div class="col-9">Dagen per week</div>
                         </div>
-                        <div class="col-9">Dagen per week</div>
-                    </div>
-                    <div class="col minmax row">
-                        <div class="col-3">
-                            <input class="total" type="text" tabindex="999">
+                        <div class="col minmax row">
+                            <div class="col-3">
+                                <input class="total" type="text" tabindex="999">
+                            </div>
+                            <div class="col-9"></div>
                         </div>
-                        <div class="col-9"></div>
+                        <div class="col totaal"></div>
                     </div>
-                    <div class="col totaal"></div>
+
+                    <div class="row" id="activiteiten">
+                        <div class="col-1"></div>
+                        <div class="col-5 beschrijving">
+                            <p>Deelname activiteiten en/of 
+                                bezoek ontmoetingsruimte:</p>
+                        </div>
+                        <div class="col-1">
+                            <label class="actBox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-3 info"></div>
+                        <div class="col totaal"></div>
+                    </div>
+
+                    <div class="row" id="dag_inc_activiteiten">
+                        <div class="col-10 beschrijving" style="text-align: right;">
+                            Dagondersteuning inclusief activiteiten: 
+                        </div>
+                        <div class="col tussen"></div>
+                    </div>
                 </div>
 
                 <div id="psychoRow" class="row">
@@ -246,20 +271,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMA
 
 
             <div id="andere">
-                <div class="row" id="activiteiten">
-                    <div class="col beschrijving">
-                        <p style="white-space:pre-line">deelname activiteiten en/of 
-                            bezoek ontmoetingsruimte</p>
-                    </div>
-                    <div class="col">
-                        <label class="actBox">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                        </label>
-                    </div>
-                    <div class="col"></div>
-                    <div class="col totaal"></div>
-                </div>
                 <div class="row" id="besteedbaarDeel">
                     <div class="col beschrijving">Vrij besteedbaar deel <span>(per jaar)</span></div>
                     <div>

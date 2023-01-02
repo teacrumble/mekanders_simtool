@@ -101,13 +101,15 @@ function checkOndersteuning_limit(input, max) {
     else lblError.textContent = "";
 }
 
+//DEPRECATED
 function checkOndersteuning_limit_dag() {
     const dag = document.querySelector("#dag input");
     const woon = document.querySelector("#woon input");
     const periode = getPeriodDays();
-    const logeren = periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
 
+    const logeren = periode >= 180 && ((eval(woon.value) / 7) * periode) <= 60;
     const max = woon.value == "" || logeren ? 5 : 7;
+
     checkOndersteuning_limit(dag, max);
 }
 
@@ -150,11 +152,8 @@ function setOndersteuning_limits() {
     const vaph = document.querySelector("#VAPH_Budget");
     const vlock = document.querySelector("#VAPH_Lock");
 
-    dag.addEventListener("input", () => checkOndersteuning_limit_dag());
-    woon.addEventListener("input", () => {
-        checkOndersteuning_limit(woon, 7);
-        checkOndersteuning_limit_dag();
-    });
+    dag.addEventListener("input", () => checkOndersteuning_limit(dag, 7));
+    woon.addEventListener("input", () => checkOndersteuning_limit(woon, 7));
     psycho.addEventListener("input", () => checkOndersteuning_limit(psycho, 99));
     besteedbaar.addEventListener("input", () => checkOndersteuningLimitBesteedbaar());
 

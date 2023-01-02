@@ -1,7 +1,18 @@
 html {
     height: 100%;
     /*background: linear-gradient(155deg, whitesmoke 0%, #72577a 50%, whitesmoke 100%);*/
-    background: linear-gradient(155deg, whitesmoke 0%, #8d7c92 50%, whitesmoke 100%);
+    background-image: linear-gradient(145deg, whitesmoke 0%, 
+
+    whitesmoke 0%, #FAA 1%, #FAA 2%,whitesmoke 3%, 
+    whitesmoke 4%, #BDE 5%, #BDE 6%, whitesmoke 7%, 
+    whitesmoke 8%, #CE9 9%,#CE9 10%, whitesmoke 11%, 
+    whitesmoke 12%, #FFF0A0 13%, #FFF0A0 14%, whitesmoke 15%,
+
+    whitesmoke 85%, #FFF0A0 86%, #FFF0A0 87%, whitesmoke 88%,
+    whitesmoke 89%, #CE9 90%,#CE9 91%, whitesmoke 92%, 
+    whitesmoke 93%, #BDE 94%, #BDE 95%, whitesmoke 96%, 
+    whitesmoke 97%, #FAA 98%, #FAA 99%,whitesmoke 100%, 
+    whitesmoke 100%);
 }
 
 body {
@@ -53,7 +64,7 @@ input {
   margin-left: -40px;
 }
 
-.totaal.symbP::after, .res.symbP::after, .totaal.symbE::after, .res.symbE::after {
+.tussen.symbP::after, .tussen.symbE::after, .totaal.symbP::after, .res.symbP::after, .totaal.symbE::after, .res.symbE::after {
   margin-left: 5px;
 }
 
@@ -180,7 +191,7 @@ input {
   background-color: rgba(25, 25, 25, 0.9);
   top: -1%;
   width: 100%;
-  height: 106%;
+  height: 103%;
   color: white;
   font-size: xx-large;
   justify-content: center;
@@ -392,7 +403,7 @@ input {
       background-color: rgba(255, 240, 160, 0.5);
   }
 
-  #andere .beschrijving {
+  .beschrijving {
       margin-left: 15px;
       text-align: right;
   }
@@ -402,7 +413,15 @@ input {
       margin-right: 15px;
   }
 
-  #andere .actBox {
+  #dagOndersteuning {
+    margin: 0 0 35px 0;
+  }
+
+  #dag_inc_activiteiten{
+    font-weight: bold;
+  }
+
+  #dagOndersteuning .actBox {
       display: block;
       position: relative;
       cursor: pointer;
@@ -412,7 +431,7 @@ input {
       user-select: none;
   }
 
-      #andere .actBox input {
+      #dagOndersteuning .actBox input {
           position: absolute;
           opacity: 0;
           cursor: pointer;
@@ -420,7 +439,7 @@ input {
           width: 0;
       }
 
-      #andere .actBox .checkmark {
+      #dagOndersteuning .actBox .checkmark {
           position: absolute;
           top: 0;
           left: 0;
@@ -432,17 +451,17 @@ input {
           margin-top: 5%;
       }
 
-          #andere .actBox .checkmark:after {
+          #dagOndersteuning .actBox .checkmark:after {
               content: "";
               position: absolute;
               display: none;
           }
 
-      #andere .actBox input:checked ~ .checkmark:after {
+      #dagOndersteuning .actBox input:checked ~ .checkmark:after {
           display: block;
       }
 
-      #andere .actBox .checkmark:after {
+      #dagOndersteuning .actBox .checkmark:after {
           left: 6px;
           top: 2px;
           width: 9px;
@@ -455,7 +474,7 @@ input {
           transform: rotate(45deg);
       }
 
-      #andere .actBox:hover input ~ .checkmark {
+      #dagOndersteuning .actBox:hover input ~ .checkmark {
           background-color: rgba(125, 125, 125, 0.3);
       }
 
@@ -498,7 +517,7 @@ input {
 #overviews, #prices {
   border-radius: 0 0 10px 10px;
   border: 2px solid black;
-  height: 475px;
+  height: 500px;
   position: relative;
 }
 
