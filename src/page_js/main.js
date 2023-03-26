@@ -132,7 +132,7 @@ function getRatio(){
     const res = document.querySelector("#res").innerHTML;
     
     if(vaph != "" && res != ""){
-        const totalen = document.querySelectorAll("#dagRow .totaal, #woonRow .totaal, #psychoRow .totaal");
+        const totalen = document.querySelectorAll("#dagRow .totaal, #woonRow .totaal, #psychoRow .totaal, #pakketten .totaal");
         let variables = 0; 
         totalen.forEach(t => variables += eval(`${t.innerHTML}+0`));
 

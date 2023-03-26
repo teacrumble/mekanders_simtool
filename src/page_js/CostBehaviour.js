@@ -178,7 +178,7 @@ class CostBehaviour {
 
     setResultPakket(){
         const pakket = document.querySelector("#pakketten");
-        this.setResultPsychoPak(pakket, false);
+        this.setResultPsychoPak(pakket, true);
     }
     /*
     setResultPakket() {
