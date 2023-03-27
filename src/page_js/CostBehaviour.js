@@ -222,6 +222,9 @@ class CostBehaviour {
             const resR = document.querySelector("#switchTotal input:checked");
             const inPoints = resR.value == "P";
             const decimals = inPoints ? 6 : 2;
+
+            let totaldays = eval(inp.value+"+0");
+
             if (acts.checked) {
                 let price = this.reader.global.activiteiten_ontmoeting;
                 let cat = this.rowcalculator.category;
@@ -256,11 +259,12 @@ class CostBehaviour {
                         dagen_per_week = (before_we / cat.dag_inc) + (after_we / (cat.dag_inc * this.reader.global.weekend_modifier))
                     }
                 }
-
                 desc.innerHTML = ` &asymp; ${fixed_p(dagen_per_week, 6)} Dagen per week`;
 
                 if (!inPoints) price *= this.reader.global.punt_euro_rate;
                 actTotaal.innerHTML = fixed_p(price, decimals);
+
+                totaldays = Math.min(fixed_p(totaldays + dagen_per_week, 6), 7);
             }
             else {
                 actTotaal.innerHTML = "";
@@ -272,7 +276,12 @@ class CostBehaviour {
             let totaalAct = eval(actTotaal.innerHTML);
             //zet som
             let som = (totaalDag ? totaalDag : 0) + (totaalAct ? totaalAct : 0);
+
             if(som > 0) document.querySelector("#dag_inc_activiteiten .tussen").innerHTML = fixed_p(som, decimals);
+            else document.querySelector("#dag_inc_activiteiten .tussen").innerHTML = "";
+
+            if(totaldays > 0) document.querySelector("#dag_inc_activiteiten .info").innerHTML = "" + totaldays + " dagen per week";
+            else document.querySelector("#dag_inc_activiteiten .info").innerHTML = "";
 
             this.calculateTotal();
         });
